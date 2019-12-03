@@ -1,0 +1,10 @@
+{
+  "name": "my-surveillance-frontend",
+  "version": "0.0.1",
+  "description": "Home surveillance frontend",
+  "author": "Laurens Verschuere",
+  "license": "MIT",
+  "dependencies": {
+    "cross-env": "5.0.5"
+  }
+}

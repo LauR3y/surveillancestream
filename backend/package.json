@@ -1,0 +1,10 @@
+{
+  "name": "my-surveillance-backend",
+  "version": "0.0.1",
+  "description": "Home surveillance backend",
+  "author": "Laurens Verschuer",
+  "license": "MIT",
+  "dependencies": {
+    "cross-env": "5.0.5"
+  }
+}
