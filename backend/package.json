@@ -1,10 +1,28 @@
 {
-  "name": "my-surveillance-backend",
+  "name": "backend",
   "version": "0.0.1",
-  "description": "Home surveillance backend",
-  "author": "Laurens Verschuer",
   "license": "MIT",
+  "devDependencies": {
+    "prisma2": "^2.0.0-preview018.1",
+    "ts-node": "8.5.4",
+    "typescript": "3.7.2"
+  },
+  "scripts": {
+    "dev:indexer": "ts-node ./src/indexer/index.ts",
+    "dev:gql": "ts-node ./src/gql/index.ts",
+    "dev:static": "ts-node ./src/static/index.ts",
+    "build": "prisma2 generate && tsc"
+  },
   "dependencies": {
-    "cross-env": "5.0.5"
+    "@prisma/photon": "^2.0.0-preview018.1",
+    "@types/glob": "^7.1.1",
+    "@types/node-static": "^0.7.3",
+    "@types/ws": "^6.0.4",
+    "dotenv": "^8.2.0",
+    "glob": "^7.1.6",
+    "graphql-yoga": "^1.18.3",
+    "nexus": "^0.12.0-rc.5",
+    "nexus-prisma": "^0.6.1",
+    "node-static": "^0.7.11"
   }
 }

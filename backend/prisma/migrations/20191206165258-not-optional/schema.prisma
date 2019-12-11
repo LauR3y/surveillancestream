@@ -1,0 +1,16 @@
+generator photon {
+  provider = "photonjs"
+}
+
+datasource db {
+  provider = "mysql"
+  url = "***"
+}
+
+model Recording {
+  id String @default(cuid()) @id
+  cameraName String
+  videoFilePath String @unique
+  imageFilePath String? @unique
+  recordedAt DateTime @default(now())
+}

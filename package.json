@@ -1,5 +1,4 @@
 {
   "name": "my-surveillance",
-  "private": true,
-  "workspaces": ["my-surveillance-backend", "my-surveillance-frontend"]
+  "private": true
 }
