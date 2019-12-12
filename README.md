@@ -1,7 +1,5 @@
 # My Surveillance
 
-## [Leantime](https://leantime.laurensverschuere.be/dashboard/show)
-
 ## Stack
 ### Backend
  - Prisma2: https://www.prisma.io/
