@@ -9,8 +9,7 @@
   },
   "scripts": {
     "dev:indexer": "ts-node ./src/indexer/index.ts",
-    "dev:gql": "ts-node ./src/gql/index.ts",
-    "dev:static": "ts-node ./src/static/index.ts",
+    "dev:server": "ts-node ./src/index.ts",
     "build": "prisma2 generate && tsc"
   },
   "dependencies": {

@@ -8,13 +8,10 @@ import { Photon } from '@prisma/photon'
 const server = new nodeStatic.Server('./dist/static/public', { indexFile: 'index.html' })
 // server.serveFile('/video', 200, {}, req, resp)
 
-const main = async (config: DotenvParseOutput) => {    
+const startStatic = (config: DotenvParseOutput) => {    
+    console.warn('Starting static server at: http://localhost:3001')
     http.createServer((request, response) => {
         request.addListener('end', function () {
-            console.warn(request.url)
-            // server.serve(request, response, (err) => {
-            //     console.error(err)
-            // })
             server.serve(request, response, (err) => {
                 const photon = new Photon({
                     // debug: true,
@@ -37,7 +34,7 @@ const main = async (config: DotenvParseOutput) => {
                             }
                         }).then((recording) => {
                             if (recording) {
-                                console.warn(recording)
+                                // console.warn(recording)
 
                                 const pathVideo = path.normalize(`${config.recording_folder}/${recording.videoFilePath}`)
                                 const pathPoster = path.normalize(`${config.recording_folder}/${recording.imageFilePath}`)
@@ -78,17 +75,4 @@ const main = async (config: DotenvParseOutput) => {
     }).listen(3001);
 }
 
-
-
-const result = dotenv.config()
-
-// Start
-if (result.parsed) {
-    // got config
-    main(result.parsed)
-    .catch(console.error)
-} else if (result.error) {
-    console.warn(result.error)
-} else {
-    console.error('Error config')
-}
+export default startStatic
