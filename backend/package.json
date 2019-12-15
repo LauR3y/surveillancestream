@@ -3,9 +3,10 @@
   "version": "0.0.1",
   "license": "MIT",
   "devDependencies": {
-    "prisma2": "^2.0.0-preview018.2",
     "ts-node": "8.5.4",
-    "typescript": "3.7.2"
+    "@types/glob": "^7.1.1",
+    "@types/node-static": "^0.7.3",
+    "@types/ws": "^6.0.4"
   },
   "scripts": {
     "dev:indexer": "ts-node ./src/indexer/index.ts",
@@ -13,10 +14,9 @@
     "build": "prisma2 generate && tsc"
   },
   "dependencies": {
+    "typescript": "3.7.2",
+    "prisma2": "^2.0.0-preview018.2",
     "@prisma/photon": "^2.0.0-preview018.2",
-    "@types/glob": "^7.1.1",
-    "@types/node-static": "^0.7.3",
-    "@types/ws": "^6.0.4",
     "dotenv": "^8.2.0",
     "glob": "^7.1.6",
     "graphql-yoga": "^1.18.3",
