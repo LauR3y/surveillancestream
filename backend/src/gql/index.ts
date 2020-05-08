@@ -1,10 +1,13 @@
 import { GraphQLServer } from 'graphql-yoga'
 import { createContext } from './context'
+import * as dotenv from 'dotenv'
 import schema from './schema'
+
+dotenv.config()
 
 const startGql = () => {
   new GraphQLServer({
-    schema,
+    schema: schema,
     context: createContext(),
   }).start(() =>
     console.log(

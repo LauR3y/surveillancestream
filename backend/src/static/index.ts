@@ -3,7 +3,7 @@ import nodeStatic from 'node-static'
 import dotenv, { DotenvParseOutput } from 'dotenv'
 import path from 'path'
 import fs from 'fs'
-import { Photon } from '@prisma/photon'
+import { PrismaClient } from '@prisma/client'
 
 const server = new nodeStatic.Server('./dist/static/public', { indexFile: 'index.html' })
 // server.serveFile('/video', 200, {}, req, resp)
@@ -13,7 +13,7 @@ const startStatic = (config: DotenvParseOutput) => {
     http.createServer((request, response) => {
         request.addListener('end', function () {
             server.serve(request, response, (err) => {
-                const photon = new Photon({
+                const prismaClient = new PrismaClient({
                     // debug: true,
                     // log: ['INFO'],
                 })
@@ -28,7 +28,7 @@ const startStatic = (config: DotenvParseOutput) => {
                             id,
                         ] = matches
 
-                        photon.recordings.findOne({
+                        prismaClient.recording.findOne({
                             where: {
                                 id,
                             }
@@ -59,7 +59,7 @@ const startStatic = (config: DotenvParseOutput) => {
                         })
                         .catch(console.error)
                         .finally(() => {
-                            photon.disconnect().catch(console.error)
+                            prismaClient.disconnect().catch(console.error)
                         })
 
                     } else {

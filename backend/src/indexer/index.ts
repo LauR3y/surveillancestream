@@ -1,4 +1,4 @@
-import { Photon } from '@prisma/photon'
+import { PrismaClient } from '@prisma/client'
 import dotenv, { DotenvParseOutput } from 'dotenv'
 import glob from 'glob'
 
@@ -13,7 +13,7 @@ const videoFileSearches = [
     '([0-9]{4})/([0-9]{2})/([0-9]{2})/([^_]+)_([^_]+)_([0-9]{4})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})\.([a-z0-9]+)',
 ]
 
-const photon = new Photon({
+const prismaClient = new PrismaClient({
     // debug: true,
     // log: ['INFO'],
 })
@@ -25,7 +25,7 @@ async function asyncForEach<T> (array: T[], callback: (item: T, index: number, a
 }
 
 async function main (config: DotenvParseOutput) {
-    await photon.connect()
+    await prismaClient.connect()
 
     // get files
     const extensions = [...VIDEO_EXTENSIONS, ...IMAGE_EXTENSIONS]
@@ -96,7 +96,7 @@ async function main (config: DotenvParseOutput) {
                 // remove
                 console.info(`Remove recording: ${videoPath}`)
                 // TODO: remove files, and from database
-                photon.recordings.delete({
+                prismaClient.recording.delete({
                     where: {
                         videoFilePath: videoPath,
                     },
@@ -105,7 +105,7 @@ async function main (config: DotenvParseOutput) {
                 // add
                 console.info(`Add recording: ${videoPath}`)
 
-                photon.recordings.upsert({
+                prismaClient.recording.upsert({
                     create: {
                         cameraName,
                         videoFilePath: videoPath,
@@ -133,7 +133,7 @@ if (result.parsed) {
     main(result.parsed)
     .catch(console.error)
     .finally(async () => {
-        await photon.disconnect()
+        await prismaClient.disconnect()
     })
 } else if (result.error) {
     console.warn(result.error)

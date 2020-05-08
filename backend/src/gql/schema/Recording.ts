@@ -1,18 +1,18 @@
-import { objectType } from "nexus"
+import { objectType } from "@nexus/schema"
 
 const Recording = objectType({
     name: 'Recording',
     definition(t) {
-      t.string('id')
-      t.string('cameraName')
-      // t.model.id()
-      // t.model.cameraName()
+      t.model.id()
+      t.model.cameraName()
+      t.model.imageFilePath()
+      t.model.recordedAt()
       t.boolean('hasPoster', {
         resolve: (root) => !!root.imageFilePath
       })
-      t.float('recordedAt', {
-        resolve: (root) => root.recordedAt.getTime()
-      })
+      // t.float('recordedAt', {
+      //   resolve: (root) => root.recordedAt.getTime()
+      // })
     },
 })
 

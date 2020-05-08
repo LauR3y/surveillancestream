@@ -1,12 +1,12 @@
 import path from 'path'
-import { makeSchema } from "nexus";
+import { makeSchema } from "@nexus/schema";
 import { nexusPrismaPlugin } from "nexus-prisma";
 import Query from "./Query";
 import Recording from "./Recording";
 
-export default makeSchema({
+const schema = makeSchema({
 //   types: [Query, Mutation, Post, User],
-    types: [Query, Recording],
+    types: [Recording, Query],
     plugins: [nexusPrismaPlugin()],
     outputs: {
     schema: __dirname + '/generated/schema.graphql',
@@ -19,8 +19,8 @@ export default makeSchema({
         contextType: 'Context.Context',
         sources: [
             {
-                source: '@prisma/photon',
-                alias: 'photon',
+                source: '@prisma/client',
+                alias: 'PrismaClient',
             }, {
                 source: require.resolve('../context'),
                 alias: 'Context',
@@ -28,3 +28,5 @@ export default makeSchema({
         ],
     },
 })
+
+export default schema
