@@ -11,7 +11,7 @@
   "scripts": {
     "dev:indexer": "ts-node ./src/indexer/index.ts",
     "dev:server": "ts-node ./src/index.ts",
-    "build": "ts-node --transpile-only src/gql/schema && prisma generate && tsc"
+    "build": "prisma generate && tsc"
   },
   "dependencies": {
     "@nexus/schema": "^0.14.0-next.1",
