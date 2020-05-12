@@ -14,14 +14,14 @@
     "build": "prisma generate && tsc"
   },
   "dependencies": {
-    "@nexus/schema": "^0.14.0-next.1",
-    "@prisma/cli": "^2.0.0-beta.4",
-    "@prisma/client": "^2.0.0-beta.4",
+    "@nexus/schema": "^0.14.0-next.2",
+    "@prisma/cli": "^2.0.0-beta.5",
+    "@prisma/client": "^2.0.0-beta.5",
     "dotenv": "^8.2.0",
     "glob": "^7.1.6",
     "graphql-yoga": "1.18.3",
     "nexus": "^0.21.0",
-    "nexus-prisma": "0.13.0-next.2",
+    "nexus-prisma": "0.13.0",
     "node-static": "^0.7.11",
     "typescript": "^3.8.2"
   }
