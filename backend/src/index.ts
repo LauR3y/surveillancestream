@@ -1,4 +1,3 @@
-import 'graphql-import-node/register';
 import './bootstrap';
 
 import { ApolloServer } from 'apollo-server-express';

@@ -1,0 +1,3 @@
+{
+  "exec": "ts-node -r graphql-import-node/register {{pwd}}/src/index.ts"
+}
