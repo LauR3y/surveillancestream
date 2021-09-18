@@ -1,0 +1,32 @@
+type Camera {
+    id: Int!
+    name: String!
+    hostname: String!
+    port: String!
+    capabilities: CameraCapabilities!
+    profiles: [CameraProfile!]!
+}
+
+type CameraCapabilities {
+  test: String!
+}
+
+
+type CameraProfile {
+  name: String!
+  token: String!
+  video: CameraProfileVideo!
+  snapshotUri: String!
+  streamUri: String!
+}
+
+type CameraProfileVideo {
+  profile: String!
+  encoding: String!
+  resolution: CameraProfileVideoResolution!
+}
+
+type CameraProfileVideoResolution {
+  width: Int!
+  height: Int!
+}
