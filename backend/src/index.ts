@@ -3,6 +3,9 @@ import './bootstrap';
 import { ApolloServer } from 'apollo-server-express';
 import express from 'express';
 import minimist from 'minimist';
+import fs from 'fs'
+import http from 'http'
+import https from 'https'
 
 import schema from './graphql/schema';
 import snapshot from './proxy/snapshot';
@@ -18,6 +21,8 @@ const apollo = new ApolloServer({
   schema,
 });
 
+const useSSL = !!process.env.SSL
+
 // without this, apollo will throw an error.
 apollo.start().then(() => {
   // Express app
@@ -29,8 +34,22 @@ apollo.start().then(() => {
   // Link Apollo with Express, listen on /
   apollo.applyMiddleware({ app, path: '/' });
 
-  // Start http server
-  app.listen(port, () => {
-    console.log(`[http] server listening on http://0.0.0.0:${port} - env:${process.env.NODE_ENV || 'default'}`);
+  // Start web server
+  let webServer: http.Server | https.Server
+
+  if (useSSL) {
+    if (!fs.existsSync('/ssl/fullchain.pem') || !fs.existsSync('/ssl/privkey.pem')) {
+      throw Error("SSL files not found")
+    }
+    webServer = https.createServer({
+      key: fs.readFileSync('/ssl/privkey.pem'),
+      cert: fs.readFileSync('/ssl/fullchain.pem'),
+    }, app);
+  } else {
+    webServer = http.createServer(app);
+  }
+
+  webServer.listen(port, () => {
+    console.log(`${useSSL ? 'HTTPS' : 'HTTP'} Server running on port ${port}`);
   });
 });
