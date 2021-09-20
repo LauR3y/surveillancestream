@@ -21,7 +21,7 @@ const apollo = new ApolloServer({
   schema,
 });
 
-const useSSL = !!process.env.SSL;
+const useSSL = process.env.SSL === 'true';
 
 // without this, apollo will throw an error.
 apollo.start().then(() => {
