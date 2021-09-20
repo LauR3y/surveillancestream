@@ -1,0 +1,3 @@
+type Mutation {
+  createCamera (name: String!, host: String!, username: String!, password: String!, port: String): Camera!
+}

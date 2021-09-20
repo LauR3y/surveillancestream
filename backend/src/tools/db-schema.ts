@@ -14,6 +14,7 @@ glob('src/models/*.ts', function (er, files) {
   db()
     .sync({
       alter: true,
+      force: true,
       logging: console.log,
     })
     .then(() => {

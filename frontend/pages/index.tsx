@@ -2,13 +2,19 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { useState } from 'react'
 import CameraList from '../components/CameraList'
+import FormAdd from '../components/FormAdd'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
   const [camera, setCamera] = useState(null)
+  const [showFormAdd, setShowFormAdd] = useState<boolean>(false)
 
   const onPressCamera = (camera) => {
-    setCamera(camera)
+    setCamera(camera);
+  }
+
+  const toggleShowFormAdd = () => {
+    setShowFormAdd(!showFormAdd);
   }
 
   return (
@@ -25,47 +31,24 @@ export default function Home() {
         </h1> */}
 
         <div style={{ display: 'flex', flex: 1, flexDirection: 'row' }}>
+         <div style={{ width: 300 }}>
+          <div>
+           <a href="#" onClick={toggleShowFormAdd}>Add</a>
+          </div>
+
           <CameraList onClick={onPressCamera} />
+          </div>
           <div style={{ flex: 1 }}>
             {camera ? camera.id : null}
           </div>
         </div>
-
-        {/* <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p> */}
-
-        {/* <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div> */}
       </main>
+
+      {showFormAdd &&
+        <div style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, background: 'red', flex: 1, justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+          <FormAdd onClose={toggleShowFormAdd} />
+        </div>
+      }
 
       <footer className={styles.footer}>
         <a

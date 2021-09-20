@@ -5,8 +5,8 @@ const camera = async (_parent: unknown, args: { id: number; useProxy: boolean })
 
   const profiles = await CameraRepository.getProfiles(args.id);
 
-  if (args.useProxy) {
-    profiles?.profiles.map((p) => {
+  if (args.useProxy && profiles) {
+    profiles.profiles.map((p) => {
       p.snapshotUri = `/proxy/snapshot?id=${args.id}`;
       p.streamUri = `/proxy/stream?id=${args.id}`;
     });

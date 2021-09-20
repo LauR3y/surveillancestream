@@ -12,6 +12,7 @@ const Camera = db().define('Camera', {
     type: DataTypes.INTEGER.UNSIGNED,
     allowNull: false,
     primaryKey: true,
+    autoIncrement: true,
   },
   name: {
     type: DataTypes.STRING,

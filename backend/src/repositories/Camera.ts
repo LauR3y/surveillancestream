@@ -3,6 +3,16 @@ import { Cam, IGetProfilesResult, IGetStreamUriResult } from 'onvif';
 import Camera from './../models/Camera';
 
 const CameraRepository = {
+  create: async (name: string, hostname: string, username: string, password: string, port: string) => {
+    return await Camera.create({
+      name,
+      hostname,
+      username,
+      password,
+      port,
+    });
+  },
+
   getById: async (id: number) => {
     return Camera.findOne({ where: { id } });
   },
