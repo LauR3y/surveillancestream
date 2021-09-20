@@ -6,4 +6,5 @@ module.exports = {
   images: {
     domains: ['localhost'],
   },
+  assetPrefix: process.env.NEXT_PUBLIC_ASSET_PREFIX
 }
