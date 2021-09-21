@@ -5,6 +5,7 @@ import fs from 'fs';
 import http from 'http';
 import https from 'https';
 import { config as dotenv } from 'dotenv';
+import { parse } from 'url'
 
 // load environment variables, fallback to .env
 dotenv();
@@ -17,9 +18,10 @@ const port = parseInt(args.port) || parseInt(process.env.PORT || '3001') || 3001
 const useSSL = process.env.SSL === 'true';
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
+const handle = app.getRequestHandler()
 
 app.prepare().then(() => {
-  const server = express();
+  // const server = express();
 
   // Start web server
   let webServer: http.Server | https.Server;
@@ -33,10 +35,16 @@ app.prepare().then(() => {
         key: fs.readFileSync('/ssl/privkey.pem'),
         cert: fs.readFileSync('/ssl/fullchain.pem'),
       },
-      server
+      (req, res) => {
+        const parsedUrl = parse(req.url!, true)
+        handle(req, res, parsedUrl)
+      }
     );
   } else {
-    webServer = http.createServer(server);
+    webServer = http.createServer((req, res) => {
+      const parsedUrl = parse(req.url!, true)
+      handle(req, res, parsedUrl)
+    });
   }
 
   webServer.listen(port, () => {
