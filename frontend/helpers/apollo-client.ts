@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 
 const client = new ApolloClient({
-    uri: process.env.GQL_HOST,
+    uri: process.env.NEXT_PUBLIC_GQL_HOST,
     cache: new InMemoryCache(),
 });
 
