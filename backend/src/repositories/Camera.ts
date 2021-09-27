@@ -99,19 +99,17 @@ const CameraRepository = {
         };
       }
 
-      return {
-        profiles: profiles.map((p) => ({
-          name: p.name,
-          token: p.$.token,
-          video: {
-            profile: p.videoEncoderConfiguration.$.Profile,
-            encoding: p.videoEncoderConfiguration.encoding,
-            resolution: p.videoEncoderConfiguration.resolution,
-          },
-          snapshotUri: uris[p.$.token].snapshot.uri,
-          streamUri: uris[p.$.token].stream.uri,
-        })),
-      };
+      return profiles.map((p) => ({
+        name: p.name,
+        token: p.$.token,
+        video: {
+          profile: p.videoEncoderConfiguration.$.Profile,
+          encoding: p.videoEncoderConfiguration.encoding,
+          resolution: p.videoEncoderConfiguration.resolution,
+        },
+        snapshotUri: uris[p.$.token].snapshot.uri,
+        streamUri: uris[p.$.token].stream.uri,
+      }));
     }
   },
 };
