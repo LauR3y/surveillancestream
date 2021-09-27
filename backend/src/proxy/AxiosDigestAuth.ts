@@ -31,23 +31,25 @@ export default class AxiosDigestAuth {
   }
 
   public async request(opts: axios.AxiosRequestConfig): Promise<axios.AxiosResponse> {
+    if (!opts.url) {
+      throw new Error('Missing url');
+    }
+
     try {
       return await this.axios.request(opts);
-    } catch (resp1) {
-      // @ts-ignore
+    } catch (resp1: any) {
       if (resp1.response === undefined || resp1.response.status !== 401 || !resp1.response.headers['www-authenticate']?.includes('nonce')) {
         throw resp1;
       }
-      // @ts-ignore
       const authDetails = resp1.response.headers['www-authenticate'].split(',').map((v: string) => v.split('='));
       ++this.count;
       const nonceCount = ('00000000' + this.count).slice(-8);
       const cnonce = crypto.randomBytes(24).toString('hex');
-      const realm = authDetails.find((el: any) => el[0].toLowerCase().indexOf('realm') > -1)[1].replace(/"/g, '');
-      const nonce = authDetails.find((el: any) => el[0].toLowerCase().indexOf('nonce') > -1)[1].replace(/"/g, '');
-      const qop = authDetails.find((el: any) => el[0].toLowerCase().indexOf('qop') > -1)[1].replace(/"/g, '');
+      const realm = authDetails.find((el: string) => el[0].toLowerCase().indexOf('realm') > -1)[1].replace(/"/g, '');
+      const nonce = authDetails.find((el: string) => el[0].toLowerCase().indexOf('nonce') > -1)[1].replace(/"/g, '');
+      const qop = authDetails.find((el: string) => el[0].toLowerCase().indexOf('qop') > -1)[1].replace(/"/g, '');
       const ha1 = crypto.createHash('md5').update(`${this.username}:${realm}:${this.password}`).digest('hex');
-      const path = `${url.parse(opts.url!).pathname}?${url.parse(opts.url!).query}`;
+      const path = `${url.parse(opts.url).pathname}?${url.parse(opts.url).query}`;
       const ha2 = crypto
         .createHash('md5')
         .update(`${opts.method ?? 'GET'}:${path}`)
