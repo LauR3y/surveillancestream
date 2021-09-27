@@ -13,8 +13,8 @@ import snapshot from './proxy/snapshot';
 // Get port from args
 const args = minimist(process.argv);
 
-// Fallback to $PORT, and then to 3000
-const port = parseInt(args.port) || parseInt(process.env.PORT || '3000') || 3000;
+// Fallback to $PORT, and then to 3002
+const port = parseInt(args.port) || parseInt(process.env.PORT || '3002') || 3002;
 
 // Apollo GraphQL Server
 const apollo = new ApolloServer({

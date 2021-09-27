@@ -13,7 +13,7 @@ dotenv();
 // Get port from args
 const args = minimist(process.argv);
 
-// Fallback to $PORT, and then to 3000
+// Fallback to $PORT, and then to 3001
 const port = parseInt(args.port) || parseInt(process.env.PORT || '3001') || 3001;
 const useSSL = process.env.SSL === 'true';
 const dev = process.env.NODE_ENV !== 'production';
