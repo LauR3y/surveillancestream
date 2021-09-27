@@ -23,13 +23,18 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       
-      - name: Node setup
-        run: nvm use
+      # Setup node nvm
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.4.0          
       
+      # Install
       - name: Install packages
-        run: cd backend && yarn install --frozen-lockfile
+        run: |
+          cd backend
+          nvm use 
+          yarn install --frozen-lockfile
 
-      # Runs a set of commands using the runners shell
+      # Runs linting task
       - name: Lint
         run: yarn run lint
           
