@@ -34,7 +34,7 @@ const CameraSnapshot = ({ id }: { id: number }) => {
   const { snapshotUri, video } = data.camera.profiles[0]
 
   return (
-    <Image src={`${process.env.GQL_HOST}${snapshotUri}`} layout='responsive' width={video.resolution.width} height={video.resolution.height} />
+    <Image src={`${process.env.NEXT_PUBLIC_GQL_HOST}${snapshotUri}`} layout='responsive' width={video.resolution.width} height={video.resolution.height} />
   );
 }
 
