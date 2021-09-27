@@ -1,23 +1,15 @@
+import 'graphql-import-node';
+
 import { makeExecutableSchema } from '@graphql-tools/schema';
-import { readdirSync, readFileSync } from 'fs';
 import { resolvers as scalarResolvers, typeDefs as ScalarTypeDefs } from 'graphql-scalars';
-import { join } from 'path';
 
 import resolvers from './resolvers';
-
-const gqlFiles = readdirSync(join(__dirname, './typedefs'));
-const typeDefs = ScalarTypeDefs;
-
-gqlFiles.forEach((file) => {
-  typeDefs.push(
-    readFileSync(join(__dirname, './typedefs', file), {
-      encoding: 'utf8',
-    })
-  );
-});
+import Camera from './typeDefs/camera.graphql';
+import Mutation from './typeDefs/mutation.graphql';
+import Query from './typeDefs/query.graphql';
 
 export default makeExecutableSchema({
-  typeDefs,
+  typeDefs: [...ScalarTypeDefs, Camera, Query, Mutation],
   resolvers: {
     ...scalarResolvers,
     ...resolvers,
