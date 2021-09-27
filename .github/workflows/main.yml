@@ -26,12 +26,13 @@ jobs:
       # Setup node nvm
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.4.0          
+        with:
+          node-version: $(cat backend/.nvmrc)
       
       # Install
       - name: Install packages
         run: |
           cd backend
-          nvm use 
           yarn install --frozen-lockfile
 
       # Runs linting task
