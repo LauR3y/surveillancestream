@@ -23,6 +23,9 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       
+      - name: Node setup
+        run: nvm use
+      
       - name: Install packages
         run: cd backend && yarn install --frozen-lockfile
 
