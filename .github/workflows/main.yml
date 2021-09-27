@@ -23,11 +23,16 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       
+      # Read .nvmrc
+      - name: Read .nvmrc
+        run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
+        id: nvm
+  
       # Setup node nvm
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.4.0          
         with:
-          node-version: $(cat backend/.nvmrc)
+          node-version: "${{ steps.nvm.outputs.NVMRC }}"
       
       # Install
       - name: Install packages
