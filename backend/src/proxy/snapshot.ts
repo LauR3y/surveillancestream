@@ -9,7 +9,7 @@ const snapshot = async (req: Request, res: Response) => {
 
     if (camera) {
       const profiles = await CameraRepository.getProfiles(parseInt(req.query.id, 10));
-      if (profiles && profiles.profiles.length > 0) {
+      if (profiles && profiles.length > 0) {
         const digestAuth = new AxiosDigestAuth({
           username: camera.username,
           password: camera.password,
@@ -20,7 +20,7 @@ const snapshot = async (req: Request, res: Response) => {
             Accept: '*/*',
           },
           method: 'GET',
-          url: profiles.profiles[1].snapshotUri,
+          url: profiles[1].snapshotUri,
           responseType: 'arraybuffer',
         });
 
