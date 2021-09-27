@@ -42,5 +42,7 @@ jobs:
 
       # Runs linting task
       - name: Lint
-        run: yarn run lint
+        run: |
+          cd backend
+          yarn run lint
           
