@@ -31,10 +31,11 @@ const CameraSnapshot = ({ id }: { id: number }) => {
     );
   }
 
-  const { snapshotUri, video } = data.camera.profiles[0]
+  const { camera } = data
+  const { snapshotUri, video } = camera.profiles[0]
 
   return (
-    <Image src={`${snapshotUri}`} layout='responsive' width={video.resolution.width} height={video.resolution.height} />
+    <Image src={`${snapshotUri}`} layout='responsive' alt={camera.name} width={video.resolution.width} height={video.resolution.height} />
   );
 }
 
